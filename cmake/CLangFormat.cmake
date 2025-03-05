@@ -1,4 +1,4 @@
-set(CLANG_FORMAT "/usr/bin/clang-format-14")
+set(CLANG_FORMAT "/usr/bin/clang-format")
 if(EXISTS ${CLANG_FORMAT})
     message(STATUS "Found clang-format at ${CLANG_FORMAT}")
 
@@ -20,5 +20,5 @@ if(EXISTS ${CLANG_FORMAT})
             COMMENT "Running clang-format"
             COMMAND find ${SOURCE_DIRS} -name '*.cc' -o -name '*.cpp' -o -name '*.h' | grep -v "_generated.h" | xargs ${CLANG_FORMAT} --Werror --dry-run)
 else()
-    message(FATAL_ERROR "clang-format-14 not found")
+    message(FATAL_ERROR "clang-format not found")
 endif()

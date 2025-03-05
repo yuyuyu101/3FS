@@ -45,8 +45,8 @@ class CMakeBuild(build_ext):
             f"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={extdir}",
             f"-DPYTHON_EXECUTABLE={sys.executable}",
             f"-DCMAKE_BUILD_TYPE={cfg}",  # not used on MSVC, but no harm
-            "-DCMAKE_CXX_COMPILER=clang++-14",
-            "-DCMAKE_C_COMPILER=clang-14",
+            "-DCMAKE_CXX_COMPILER=clang",
+            "-DCMAKE_C_COMPILER=clang",
             "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
             "-DUSE_RTTI=ON",
             "-DOVERRIDE_CXX_NEW_DELETE=OFF",
