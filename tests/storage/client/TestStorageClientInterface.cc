@@ -757,6 +757,20 @@ SystemSetupConfig testInMemClient = {
     StorageClient::ImplementationType::InMem /*clientImplType*/,
 };
 
+SystemSetupConfig testVFSClient = {
+    128_KB /*chunkSize*/,
+    1 /*numChains*/,
+    1 /*numReplicas*/,
+    1 /*numStorageNodes*/,
+    {folly::fs::temp_directory_path()} /*dataPaths*/,
+    hf3fs::Path() /*clientConfig*/,
+    hf3fs::Path() /*serverConfig*/,
+    {} /*storageEndpoints*/,
+    0 /*serviceLevel*/,
+    0 /*listenPort*/,
+    StorageClient::ImplementationType::VFS /*clientImplType*/,
+};
+
 SystemSetupConfig testRpcClient = {
     128_KB /*chunkSize*/,
     1 /*numChains*/,
@@ -774,6 +788,10 @@ SystemSetupConfig testSmallChunk = {
 };
 
 INSTANTIATE_TEST_SUITE_P(InMemClient,
+                         TestStorageClientInterface,
+                         ::testing::Values(testInMemClient),
+                         SystemSetupConfig::prettyPrintConfig);
+INSTANTIATE_TEST_SUITE_P(VFSClient,
                          TestStorageClientInterface,
                          ::testing::Values(testInMemClient),
                          SystemSetupConfig::prettyPrintConfig);

@@ -2,6 +2,7 @@
 
 #include "StorageClientImpl.h"
 #include "StorageClientInMem.h"
+#include "StorageClientVFS.h"
 #include "common/monitor/ScopedMetricsWriter.h"
 #include "common/net/ib/RDMABuf.h"
 
@@ -32,7 +33,12 @@ std::shared_ptr<StorageClient> StorageClient::create(ClientId clientId,
   if (config.implementation_type() == ImplementationType::RPC) {
     client = std::make_shared<StorageClientImpl>(clientId, config, mgmtdClient);
   } else if (config.implementation_type() == ImplementationType::InMem) {
+    XLOGF(WARN, "Creating InMem storage client - this implementation is for TESTING ONLY");
     client = std::make_shared<StorageClientInMem>(clientId, config, mgmtdClient);
+  } else if (config.implementation_type() == ImplementationType::VFS) {
+    XLOGF(WARN, "Creating VFS storage client - this implementation is for TESTING ONLY");
+    XLOGF(WARN, "VFS backend stores data in local filesystem and is NOT suitable for production use");
+    client = std::make_shared<StorageClientVFS>(clientId, config, mgmtdClient);
   }
 
   if (!client || !client->start()) {

@@ -340,6 +340,7 @@ class StorageClient : public folly::MoveOnly {
   enum class ImplementationType {
     RPC,
     InMem,
+    VFS,  // New VFS implementation type
   };
 
   enum class MethodType {
